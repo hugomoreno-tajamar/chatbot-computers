@@ -5,8 +5,8 @@ import docx
 
 def convert_file_to_text(file):
     file_type = file.type.split("/")[1]  # Obtener el tipo de archivo (sin el MIME type)
-    
-    if file_type == "docx":
+    print(file_type)
+    if "word" or "docx" in file_type:
         # Procesar archivos Word (.docx)
         try:
             doc = docx.Document(file)  # Cargar el documento Word

@@ -4,7 +4,6 @@ from groq import Groq
 from dotenv import load_dotenv
 from .db import search_computer_in_mongo
 from .translator import translate_text
-import streamlit as st
 
 load_dotenv()
 
@@ -24,7 +23,7 @@ def clean_json_response(response):
 def format_query(user_message):
 
     client = Groq(
-        api_key=st.secrets["GROQ_API_KEY"],  # Tu API Key
+        api_key=os.environ.get("GROQ_API_KEY"),  # Tu API Key
     )
 
     # Mensaje de sistema: El asistente debe procesar la consulta y devolver solo los campos existentes del producto en JSON
