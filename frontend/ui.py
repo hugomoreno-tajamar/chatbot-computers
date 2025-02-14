@@ -111,11 +111,11 @@ def chat_ui():
             st.markdown(f'<div class="stChatMessage {role_class}">{message["text"]}</div>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    def handle_send(message, lang=None):
+    def handle_send(message, language=None):
         if message:
             st.session_state.messages.append({"role": "user", "text": message})
-            if lang:
-                bot_reply = chatbot_response(message, lang)
+            if language:
+                bot_reply = chatbot_response(message, language)
             else:
                 bot_reply = chatbot_response(message)
             st.session_state.messages.append({"role": "assistant", "text": bot_reply})
@@ -125,13 +125,13 @@ def chat_ui():
 
     # Botón para enviar mensaje al presionar Enter o clic
     if st.button("Enviar"):
-        handle_send(user_input, lang)
+        handle_send(user_input, language)
         st.rerun()
         chat_box.empty() 
          # Limpiar y volver a renderizar el chat
 
     # Botón para subir archivos
-    uploaded_file = st.file_uploader("Sube un archivo", type=["txt", "docx"])
+    uploaded_file = st.file_uploader("Sube un archivo", type=["pdf", "jpg", "png", "txt", "docx"])
 
     # Verificamos si un archivo fue cargado y si aún no se ha procesado
     if uploaded_file and not st.session_state.file_uploaded:
@@ -144,7 +144,7 @@ def chat_ui():
         else:
             text_converted = convert_file_to_text(uploaded_file)
             if language:
-                bot_reply = chatbot_response(text_converted, lang)
+                bot_reply = chatbot_response(text_converted, language)
             else:
                 bot_reply = chatbot_response(text_converted)
             st.session_state.messages.append({"role": "assistant", "text": bot_reply})
