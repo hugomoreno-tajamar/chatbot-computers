@@ -1,14 +1,15 @@
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
+import streamlit as st
 
 load_dotenv
 
 def search_computer_in_mongo(user_query):
     # Conectar a MongoDB
-    client = MongoClient(os.getenv("MONGO_URI"))
-    db = client[os.getenv("MONGO_DB")]
-    collection = db[os.getenv("MONGO_COLLECTION")]
+    client = MongoClient(st.secrets["MONGO_URI"])
+    db = client[st.secrets["MONGO_DB"]]
+    collection = db[st.secrets["MONGO_COLLECTION"]]
     
     # Crear una consulta con $or para que se cumpla al menos uno de los criterios
     or_conditions = []
